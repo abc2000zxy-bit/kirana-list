@@ -7,36 +7,36 @@
   <style>
     * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
     body { margin: 0; background: #f4f6f8; color: #1f2937; padding-bottom: 90px; }
-    header { background: #15803d; color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    header { background: #15803d; color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 10; }
     .header-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     header h1 { margin: 0; font-size: 19px; }
     header p { margin: 4px 0 0; font-size: 13px; opacity: 0.92; }
-    .lang-bar { display: flex; background: rgba(255,255,255,0.18); border-radius: 8px; padding: 2px; }
-    .lang-btn { border: none; background: transparent; color: white; padding: 5px 8px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+    .lang-bar { display: flex; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 2px; }
+    .lang-btn { border: none; background: transparent; color: white; padding: 5px 8px; font-size: 12px; font-weight: 700; border-radius: 6px; }
     .lang-btn.active { background: white; color: #15803d; }
     .tabs { display: flex; gap: 8px; padding: 12px 14px; overflow-x: auto; background: #fff; border-bottom: 1px solid #e5e7eb; }
-    .tab { padding: 8px 14px; border-radius: 20px; border: 1px solid #d1d5db; background: #f9fafb; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+    .tab { padding: 8px 14px; border-radius: 20px; border: 1px solid #d1d5db; background: #f9fafb; font-size: 14px; font-weight: 600; white-space: nowrap; }
     .tab.active { background: #15803d; color: white; border-color: #15803d; }
     .add-box { display: flex; gap: 8px; padding: 12px 14px; }
     .add-box input { flex: 1; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 15px; }
     .add-box button { background: #15803d; color: white; border: none; border-radius: 10px; padding: 0 16px; font-weight: 600; font-size: 15px; }
     .list { padding: 0 14px; display: flex; flex-direction: column; gap: 10px; }
-    .card { background: white; padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 2px solid transparent; }
+    .card { background: white; padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 2px solid transparent; }
     .card.selected { border-color: #16a34a; background: #f0fdf4; }
-    .item-info { flex: 1; cursor: pointer; }
+    .item-info { flex: 1; }
     .item-name { font-size: 16px; font-weight: 600; }
     .item-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
     .qty-controls { display: flex; align-items: center; gap: 6px; }
     select { padding: 6px 8px; border-radius: 8px; border: 1px solid #d1d5db; font-size: 14px; background: white; }
-    .check-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #16a34a; background: white; color: #16a34a; font-weight: bold; font-size: 16px; cursor: pointer; }
+    .check-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #16a34a; background: white; color: #16a34a; font-weight: bold; font-size: 16px; }
     .card.selected .check-btn { background: #16a34a; color: white; }
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px 14px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
+    .del-btn { border: none; background: #fee2e2; color: #dc2626; border-radius: 8px; padding: 6px 8px; font-size: 14px; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px 14px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; }
     .clear-btn { padding: 12px 14px; border-radius: 10px; border: 1px solid #ef4444; color: #ef4444; background: white; font-weight: 600; }
-    .wa-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; background: #25D366; color: white; font-size: 16px; font-weight: 700; cursor: pointer; }
+    .wa-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; background: #25D366; color: white; font-size: 16px; font-weight: 700; }
   </style>
 </head>
 <body>
-
 <header>
   <div class="header-top">
     <h1 id="appTitle">🛒 Kirana & Sabzi List</h1>
@@ -48,21 +48,73 @@
   </div>
   <p id="appSub">Tap items to add & send on WhatsApp</p>
 </header>
-
 <div class="tabs" id="tabs"></div>
-
 <div class="add-box">
-  <input type="text" id="customItem" placeholder="Add custom item..." />
+  <input type="text" id="customItem" placeholder="Add custom item (e.g. Kali Mirch, Besan)..." />
   <button type="button" id="addBtn" onclick="addCustom()">+ Add</button>
 </div>
-
 <div class="list" id="itemList"></div>
-
 <div class="bottom-bar">
-  <button type="button" class="clear-btn" id="clearBtn" onclick="clearAll()">Clear</button>
+  <button type="button" class="clear-btn" id="clearBtn" onclick="clearAll()">Uncheck All</button>
   <button type="button" class="wa-btn" onclick="sendWhatsApp()"><span id="waLabel">Send to WhatsApp</span> (<span id="count">0</span>)</button>
 </div>
+<script>
+var ui = {
+  en: { title: "🛒 Kirana & Sabzi List", sub: "Tap items to add & send on WhatsApp", ph: "Add item (Kali Mirch, Besan, Rajma)...", add: "+ Add", clr: "Uncheck All", wa: "Send to WhatsApp", emp: "Select at least 1 item!", del: "Delete item?", hdr: "*🛒 Ghar Ki List:*", cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" } },
+  hi: { title: "🛒 राशन और सब्ज़ी लिस्ट", sub: "सामान चुनें और व्हाट्सएप पर भेजें", ph: "सामान लिखें (काली मिर्च, बेसन, राजमा)...", add: "+ जोड़ें", clr: "सब हटाएं", wa: "व्हाट्सएप पर भेजें", emp: "पहले कम से कम 1 सामान चुनें!", del: "सामान हटाएं?", hdr: "*🛒 घर का सामान:*", cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" } },
+  pa: { title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ", sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", ph: "ਸਮਾਨ ਲਿਖੋ (ਕਾਲੀ ਮਿਰਚ, ਵੇਸਣ, ਰਾਜਮਾਂ)...", add: "+ ਜੋੜੋ", clr: "ਸਭ ਅਣ-ਚੁਣੋ", wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", emp: "ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!", del: "ਸਮਾਨ ਹਟਾਉਣਾ ਹੈ?", hdr: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*", cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" } }
+};
+var dict = {
+  "kali mirch": ["Kali Mirch", "काली मिर्च", "ਕਾਲੀ ਮਿਰਚ"], "besan": ["Besan", "बेसन", "ਵੇਸਣ"], "sooji": ["Sooji", "सूजी", "ਸੂਜੀ"],
+  "maida": ["Maida", "मैदा", "ਮੈਦਾ"], "poha": ["Poha", "पोहा", "ਪੋਹਾ"], "dalia": ["Dalia", "दलिया", "ਦਲੀਆ"],
+  "rajma": ["Rajma", "राजमा", "ਰਾਜਮਾਂ"], "chole": ["Chole", "छोले", "ਛੋਲੇ"], "kala chana": ["Kala Chana", "काला चना", "ਕਾਲੇ ਛੋਲੇ"],
+  "urad dal": ["Urad Dal", "उड़द दाल", "ਮਾਂਹ ਦੀ ਦਾਲ"], "masoor dal": ["Masoor Dal", "मसूर दाल", "ਮਸਰਾਂ ਦੀ ਦਾਲ"], "gud": ["Gud (Jaggery)", "गुड़", "ਗੁੜ"],
+  "garam masala": ["Garam Masala", "गरम मसाला", "ਗਰਮ ਮਸਾਲਾ"], "elaichi": ["Elaichi", "इलायची", "ਇਲਾਇਚੀ"], "laung": ["Laung", "लौंग", "ਲੌਂਗ"],
+  "hing": ["Hing", "हींग", "ਹਿੰਗ"], "ajwain": ["Ajwain", "अजवाइन", "ਅਜਵਾਇਣ"], "saunf": ["Saunf", "सौंफ", "ਸੌਂਫ"],
+  "kasuri methi": ["Kasuri Methi", "कसूरी मेथी", "ਕਸੂਰੀ ਮੇਥੀ"], "gobhi": ["Gobhi", "फूलगोभी", "ਫੁੱਲ ਗੋਭੀ"], "matar": ["Matar", "मटर", "ਮਟਰ"],
+  "bhindi": ["Bhindi", "भिंडी", "ਭਿੰਡੀ"], "baingan": ["Baingan", "बैंगन", "ਬੈਂਗਣ"], "lauki": ["Lauki / Ghiya", "लौकी", "ਘੀਆ"],
+  "karela": ["Karela", "करेला", "ਕਰੇਲਾ"], "shimla mirch": ["Shimla Mirch", "शिमला मिर्च", "ਸ਼ਿਮਲਾ ਮਿਰਚ"], "gajar": ["Gajar", "गाजर", "ਗਾਜਰ"],
+  "palak": ["Palak", "पालक", "ਪਾਲਕ"], "nimbu": ["Nimbu", "नींबू", "ਨਿੰਬੂ"], "lassi": ["Lassi", "लस्सी", "ਲੱਸੀ"],
+  "makhan": ["Makhan", "मक्खन", "ਮੱਖਣ"], "kaju": ["Kaju", "काजू", "ਕਾਜੂ"], "badam": ["Badam", "बादाम", "ਬਦਾਮ"],
+  "kishmish": ["Kishmish", "किशमिश", "ਸੌਗੀ"], "sabun": ["Sabun", "साबुन", "ਸਾਬਣ"], "surf": ["Surf / Detergent", "सर्फ़", "ਸਰਫ਼"]
+};
+var base = [
+  [1,"Ration","Atta (Wheat Flour)","आटा","ਆਟਾ (ਕਣਕ)","5 kg"], [2,"Ration","Basmati Rice","चावल","ਬਾਸਮਤੀ ਚੌਲ","2 kg"],
+  [3,"Ration","Arhar / Toor Dal","अरहर दाल","ਅਰਹਰ ਦਾਲ","1 kg"], [4,"Ration","Moong Dal","मूंग दाल","ਮੂੰਗੀ ਦੀ ਦਾਲ","500 g"],
+  [5,"Ration","Chana Dal","चना दाल","ਛੋਲਿਆਂ ਦੀ ਦਾਲ","500 g"], [6,"Ration","Sugar (Cheeni)","चीनी","ਖੰਡ","2 kg"],
+  [7,"Ration","Chai Patti","चाय पत्ती","ਚਾਹ ਪੱਤੀ","500 g"], [8,"Ration","Cooking Oil","तेल","ਤੇਲ","1 L"],
+  [9,"Ration","Desi Ghee","देसी घी","ਦੇਸੀ ਘਿਓ","1 kg"], [10,"Masale","Haldi Powder","हल्दी","ਹਲਦੀ","250 g"],
+  [11,"Masale","Lal Mirch Powder","लाल मिर्च","ਲਾਲ ਮਿਰਚ","250 g"], [12,"Masale","Dhaniya Powder","धनिया पाउडर","ਧਨੀਆ ਪਾਊਡਰ","250 g"],
+  [13,"Masale","Jeera","जीरा","ਜ਼ੀਰਾ","100 g"], [14,"Masale","Salt (Namak)","नमक","ਲੂਣ","1 pkt"],
+  [15,"Sabzi","Aloo (Potato)","आलू","ਆਲੂ","2 kg"], [16,"Sabzi","Pyaz (Onion)","प्याज़","ਪਿਆਜ਼","2 kg"],
+  [17,"Sabzi","Tamatar (Tomato)","टमाटर","ਟਮਾਟਰ","1 kg"], [18,"Sabzi","Adrak & Lehsun","अदरक लहसुन","ਅਦਰਕ ਲਸਣ","250 g"],
+  [19,"Sabzi","Hari Mirch & Dhaniya","हरी मिर्च धनिया","ਹਰੀ ਮਿਰਚ ਧਨੀਆ","100 g"], [20,"Dairy","Milk (Doodh)","दूध","ਦੁੱਧ","1 L"],
+  [21,"Dairy","Dahi (Curd)","दही","ਦਹੀਂ","500 g"], [22,"Dairy","Paneer","पनीर","ਪਨੀਰ","250 g"],
+  [23,"Dairy","Bread / Butter","ब्रेड / मक्खन","ਬ੍ਰੈੱਡ / ਮੱਖਣ","1 pkt"]
+].map(function(x){ return { id:x[0], cat:x[1], en:x[2], hi:x[3], pa:x[4], qty:x[5], sel:false }; });
+var qtys = ["100 g","250 g","500 g","1 kg","2 kg","5 kg","10 kg","500 ml","1 L","1 pkt","2 pkt","1 doz"];
+var cats = ["All","Selected","Ration","Masale","Sabzi","Dairy"];
+var lang = localStorage.getItem("k_lang") || "en";
+var tab = "All";
+var items = JSON.parse(localStorage.getItem("k_v6") || "null") || base;
 
-<script src="app.js"></script>
-</body>
-</html>
+function save() { localStorage.setItem("k_v6", JSON.stringify(items)); render(); }
+function setLang(l) { lang = l; localStorage.setItem("k_lang", l); render(); }
+function setTab(t) { tab = t; render(); }
+function tog(id) { items.forEach(function(i){ if(i.id===id) i.sel=!i.sel; }); save(); }
+function chg(id, v) { items.forEach(function(i){ if(i.id===id){ i.qty=v; i.sel=true; } }); save(); }
+function del(id) { if(confirm(ui[lang].del)){ items = items.filter(function(i){ return i.id!==id; }); save(); } }
+function clearAll() { items.forEach(function(i){ i.sel=false; }); save(); }
+function addCustom() {
+  var inp = document.getElementById("customItem"), v = inp.value.trim();
+  if(!v) return;
+  var tr = dict[v.toLowerCase()] || [v, v, v];
+  var c = (tab==="All"||tab==="Selected") ? "Ration" : tab;
+  items.unshift({ id:Date.now(), cat:c, en:tr[0], hi:tr[1], pa:tr[2], qty:"1 pkt", sel:true });
+  inp.value = ""; save();
+}
+function sendWhatsApp() {
+  var p = items.filter(function(i){ return i.sel; }), t = ui[lang];
+  if(!p.length) return alert(t.emp);
+  var nl = String.fromCharCode(10);
+  var msg = t.hdr + nl + nl + p.map(function(x, idx){ return (idx+1)+". "+(x[lang]||x.en)+" — *"+x.qty+"*"; }).join(nl);
