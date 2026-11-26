@@ -90,12 +90,16 @@ var autoDict = [
   { keys: ["surf", "detergent", "सर्फ़", "ਸਰਫ਼"], en: "Detergent / Surf", hi: "सर्फ़ / डिटर्जेंट", pa: "ਸਰਫ਼" }
 ];
 
+function getItem(arr, idx) {
+  return arr.slice(idx, idx + 1).pop();
+}
+
 function translateCustom(rawName) {
   var clean = rawName.trim().toLowerCase();
   for (var i = 0; i < autoDict.length; i++) {
-    var entry = autoDict.at(i);
+    var entry = getItem(autoDict, i);
     for (var k = 0; k < entry.keys.length; k++) {
-      if (clean === entry.keys.at(k)) {
+      if (clean === getItem(entry.keys, k)) {
         return { en: entry.en, hi: entry.hi, pa: entry.pa };
       }
     }
@@ -133,7 +137,3 @@ var quantities = ["100 g", "250 g", "500 g", "1 kg", "2 kg", "5 kg", "10 kg", "5
 var catKeys = ["All", "Selected", "Ration", "Masale", "Sabzi", "Dairy"];
 
 var lang = "en";
-var currentTab = "All";
-var items = defaultItems;
-
-try {
