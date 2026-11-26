@@ -93,9 +93,9 @@ var autoDict = [
 function translateCustom(rawName) {
   var clean = rawName.trim().toLowerCase();
   for (var i = 0; i < autoDict.length; i++) {
-    var entry = autoDict[i];
+    var entry = autoDict.at(i);
     for (var k = 0; k < entry.keys.length; k++) {
-      if (clean === entry.keys[k]) {
+      if (clean === entry.keys.at(k)) {
         return { en: entry.en, hi: entry.hi, pa: entry.pa };
       }
     }
