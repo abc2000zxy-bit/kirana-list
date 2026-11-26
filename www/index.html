@@ -50,7 +50,7 @@
 </header>
 <div class="tabs" id="tabs"></div>
 <div class="add-box">
-  <input type="text" id="customItem" placeholder="Add custom item (e.g. Kali Mirch, Besan)..." />
+  <input type="text" id="customItem" placeholder="Add custom item..." />
   <button type="button" id="addBtn" onclick="addCustom()">+ Add</button>
 </div>
 <div class="list" id="itemList"></div>
@@ -60,48 +60,9 @@
 </div>
 <script>
 var ui = {
-  en: { title: "🛒 Kirana & Sabzi List", sub: "Tap items to add & send on WhatsApp", ph: "Add item (Kali Mirch, Besan, Rajma)...", add: "+ Add", clr: "Uncheck All", wa: "Send to WhatsApp", emp: "Select at least 1 item!", del: "Delete item?", hdr: "*🛒 Ghar Ki List:*", cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" } },
-  hi: { title: "🛒 राशन और सब्ज़ी लिस्ट", sub: "सामान चुनें और व्हाट्सएप पर भेजें", ph: "सामान लिखें (काली मिर्च, बेसन, राजमा)...", add: "+ जोड़ें", clr: "सब हटाएं", wa: "व्हाट्सएप पर भेजें", emp: "पहले कम से कम 1 सामान चुनें!", del: "सामान हटाएं?", hdr: "*🛒 घर का सामान:*", cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" } },
-  pa: { title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ", sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", ph: "ਸਮਾਨ ਲਿਖੋ (ਕਾਲੀ ਮਿਰਚ, ਵੇਸਣ, ਰਾਜਮਾਂ)...", add: "+ ਜੋੜੋ", clr: "ਸਭ ਅਣ-ਚੁਣੋ", wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", emp: "ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!", del: "ਸਮਾਨ ਹਟਾਉਣਾ ਹੈ?", hdr: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*", cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" } }
-};
-var dict = {
-  "kali mirch": { en: "Kali Mirch", hi: "काली मिर्च", pa: "ਕਾਲੀ ਮਿਰਚ" },
-  "kali mirchi": { en: "Kali Mirch", hi: "काली मिर्च", pa: "ਕਾਲੀ ਮਿਰਚ" },
-  "besan": { en: "Besan", hi: "बेसन", pa: "ਵੇਸਣ" },
-  "sooji": { en: "Sooji", hi: "सूजी", pa: "ਸੂਜੀ" },
-  "maida": { en: "Maida", hi: "मैदा", pa: "ਮੈਦਾ" },
-  "poha": { en: "Poha", hi: "पोहा", pa: "ਪੋਹਾ" },
-  "dalia": { en: "Dalia", hi: "दलिया", pa: "ਦਲੀਆ" },
-  "rajma": { en: "Rajma", hi: "राजमा", pa: "ਰਾਜਮਾਂ" },
-  "chole": { en: "Chole", hi: "छोले", pa: "ਛੋਲੇ" },
-  "kala chana": { en: "Kala Chana", hi: "काला चना", pa: "ਕਾਲੇ ਛੋਲੇ" },
-  "urad dal": { en: "Urad Dal", hi: "उड़द दाल", pa: "ਮਾਂਹ ਦੀ ਦਾਲ" },
-  "masoor dal": { en: "Masoor Dal", hi: "मसूर दाल", pa: "ਮਸਰਾਂ ਦੀ ਦਾਲ" },
-  "gud": { en: "Gud (Jaggery)", hi: "गुड़", pa: "ਗੁੜ" },
-  "garam masala": { en: "Garam Masala", hi: "गरम मसाला", pa: "ਗਰਮ ਮਸਾਲਾ" },
-  "elaichi": { en: "Elaichi", hi: "इलायची", pa: "ਇਲਾਇਚੀ" },
-  "laung": { en: "Laung", hi: "लौंग", pa: "ਲੌਂਗ" },
-  "hing": { en: "Hing", hi: "हींग", pa: "ਹਿੰਗ" },
-  "ajwain": { en: "Ajwain", hi: "अजवाइन", pa: "ਅਜਵਾਇਣ" },
-  "saunf": { en: "Saunf", hi: "सौंफ", pa: "ਸੌਂਫ" },
-  "kasuri methi": { en: "Kasuri Methi", hi: "कसूरी मेथी", pa: "ਕਸੂਰੀ ਮੇਥੀ" },
-  "gobhi": { en: "Gobhi", hi: "फूलगोभी", pa: "ਫੁੱਲ ਗੋਭੀ" },
-  "matar": { en: "Matar", hi: "मटर", pa: "ਮਟਰ" },
-  "bhindi": { en: "Bhindi", hi: "भिंडी", pa: "ਭਿੰਡੀ" },
-  "baingan": { en: "Baingan", hi: "बैंगन", pa: "ਬੈਂਗਣ" },
-  "lauki": { en: "Lauki / Ghiya", hi: "लौकी", pa: "ਘੀਆ" },
-  "karela": { en: "Karela", hi: "करेला", pa: "ਕਰੇਲਾ" },
-  "shimla mirch": { en: "Shimla Mirch", hi: "शिमला मिर्च", pa: "ਸ਼ਿਮਲਾ ਮਿਰਚ" },
-  "gajar": { en: "Gajar", hi: "गाजर", pa: "ਗਾਜਰ" },
-  "palak": { en: "Palak", hi: "पालक", pa: "ਪਾਲਕ" },
-  "nimbu": { en: "Nimbu", hi: "नींबू", pa: "ਨਿੰਬੂ" },
-  "lassi": { en: "Lassi", hi: "लस्सी", pa: "ਲੱਸੀ" },
-  "makhan": { en: "Makhan", hi: "मक्खन", pa: "ਮੱਖਣ" },
-  "kaju": { en: "Kaju", hi: "काजू", pa: "ਕਾਜੂ" },
-  "badam": { en: "Badam", hi: "बादाम", pa: "ਬਦਾਮ" },
-  "kishmish": { en: "Kishmish", hi: "किशमिश", pa: "ਸੌਗੀ" },
-  "sabun": { en: "Sabun", hi: "साबुन", pa: "ਸਾਬਣ" },
-  "surf": { en: "Surf / Detergent", hi: "सर्फ़", pa: "ਸਰਫ਼" }
+  en: { title: "🛒 Kirana & Sabzi List", sub: "Tap items to add & send on WhatsApp", ph: "Add custom item...", add: "+ Add", clr: "Uncheck All", wa: "Send to WhatsApp", emp: "Select at least 1 item!", del: "Delete this item?", hdr: "*🛒 Ghar Ki List:*", cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" } },
+  hi: { title: "🛒 राशन और सब्ज़ी लिस्ट", sub: "सामान चुनें और व्हाट्सएप पर भेजें", ph: "नया सामान लिखें...", add: "+ जोड़ें", clr: "सब हटाएं", wa: "व्हाट्सएप पर भेजें", emp: "कम से कम 1 सामान चुनें!", del: "सामान हटाएं?", hdr: "*🛒 घर का सामान:*", cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" } },
+  pa: { title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ", sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ ਤੇ ਭੇਜੋ", ph: "ਨਵਾਂ ਸਮਾਨ ਲਿਖੋ...", add: "+ ਜੋੜੋ", clr: "ਸਭ ਅਣ-ਚੁਣੋ", wa: "ਵਟਸਐਪ ਤੇ ਭੇਜੋ", emp: "ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!", del: "ਸਮਾਨ ਹਟਾਉਣਾ ਹੈ?", hdr: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*", cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" } }
 };
 var base = [
   { id: 1, cat: "Ration", en: "Atta (Wheat Flour)", hi: "आटा", pa: "ਆਟਾ (ਕਣਕ)", qty: "5 kg", sel: false },
@@ -125,3 +86,43 @@ var base = [
   { id: 19, cat: "Sabzi", en: "Hari Mirch & Dhaniya", hi: "हरी मिर्च धनिया", pa: "ਹਰੀ ਮਿਰਚ ਧਨੀਆ", qty: "100 g", sel: false },
   { id: 20, cat: "Dairy", en: "Milk (Doodh)", hi: "दूध", pa: "ਦੁੱਧ", qty: "1 L", sel: false },
   { id: 21, cat: "Dairy", en: "Dahi (Curd)", hi: "दही", pa: "ਦਹੀਂ", qty: "500 g", sel: false },
+  { id: 22, cat: "Dairy", en: "Paneer", hi: "पनीर", pa: "ਪਨੀਰ", qty: "250 g", sel: false },
+  { id: 23, cat: "Dairy", en: "Bread / Butter", hi: "ब्रेड / मक्खन", pa: "ਬ੍ਰੈੱਡ / ਮੱਖਣ", qty: "1 pkt", sel: false }
+];
+var qtys = ["100 g","250 g","500 g","1 kg","2 kg","5 kg","10 kg","500 ml","1 L","1 pkt","2 pkt","1 doz"];
+var cats = ["All","Selected","Ration","Masale","Sabzi","Dairy"];
+var lang = localStorage.getItem("k_lang") || "en";
+var tab = "All";
+var items = JSON.parse(localStorage.getItem("k_clean_v1") || "null") || base;
+
+function save() { localStorage.setItem("k_clean_v1", JSON.stringify(items)); render(); }
+function setLang(l) { lang = l; localStorage.setItem("k_lang", l); render(); }
+function setTab(t) { tab = t; render(); }
+function tog(id) { items.forEach(function(i){ if(i.id===id) i.sel=!i.sel; }); save(); }
+function chg(id, v) { items.forEach(function(i){ if(i.id===id){ i.qty=v; i.sel=true; } }); save(); }
+function del(id) { if(confirm(ui[lang].del)){ items = items.filter(function(i){ return i.id!==id; }); save(); } }
+function clearAll() { items.forEach(function(i){ i.sel=false; }); save(); }
+function addCustom() {
+  var inp = document.getElementById("customItem"), v = inp.value.trim();
+  if(!v) return;
+  var c = (tab==="All"||tab==="Selected") ? "Ration" : tab;
+  items.unshift({ id:Date.now(), cat:c, en:v, hi:v, pa:v, qty:"1 pkt", sel:true });
+  inp.value = ""; save();
+}
+function sendWhatsApp() {
+  var p = items.filter(function(i){ return i.sel; }), t = ui[lang];
+  if(!p.length) return alert(t.emp);
+  var nl = String.fromCharCode(10);
+  var msg = t.hdr + nl + nl + p.map(function(x, idx){ return (idx+1)+". "+(x[lang]||x.en)+" — *"+x.qty+"*"; }).join(nl);
+  window.location.href = "whatsapp://send?text=" + encodeURIComponent(msg);
+}
+function render() {
+  var t = ui[lang] || ui.en;
+  document.getElementById("appTitle").innerText = t.title;
+  document.getElementById("appSub").innerText = t.sub;
+  document.getElementById("customItem").placeholder = t.ph;
+  document.getElementById("addBtn").innerText = t.add;
+  document.getElementById("clearBtn").innerText = t.clr;
+  document.getElementById("waLabel").innerText = t.wa;
+  ["en","hi","pa"].forEach(function(l){ document.getElementById("btn-"+l).className = "lang-btn"+(lang===l?" active":""); });
+  document.getElementById("tabs").innerHTML = cats.map(function(c){
