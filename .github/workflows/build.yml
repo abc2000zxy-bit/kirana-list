@@ -28,6 +28,7 @@ jobs:
           npm install
           npx cap add android
           npx cap sync android
+          node make-icon.js
 
       - name: Build Debug APK
         run: |
