@@ -65,56 +65,63 @@ var ui = {
   pa: { title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ", sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", ph: "ਸਮਾਨ ਲਿਖੋ (ਕਾਲੀ ਮਿਰਚ, ਵੇਸਣ, ਰਾਜਮਾਂ)...", add: "+ ਜੋੜੋ", clr: "ਸਭ ਅਣ-ਚੁਣੋ", wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ", emp: "ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!", del: "ਸਮਾਨ ਹਟਾਉਣਾ ਹੈ?", hdr: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*", cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" } }
 };
 var dict = {
-  "kali mirch": ["Kali Mirch", "काली मिर्च", "ਕਾਲੀ ਮਿਰਚ"], "besan": ["Besan", "बेसन", "ਵੇਸਣ"], "sooji": ["Sooji", "सूजी", "ਸੂਜੀ"],
-  "maida": ["Maida", "मैदा", "ਮੈਦਾ"], "poha": ["Poha", "पोहा", "ਪੋਹਾ"], "dalia": ["Dalia", "दलिया", "ਦਲੀਆ"],
-  "rajma": ["Rajma", "राजमा", "ਰਾਜਮਾਂ"], "chole": ["Chole", "छोले", "ਛੋਲੇ"], "kala chana": ["Kala Chana", "काला चना", "ਕਾਲੇ ਛੋਲੇ"],
-  "urad dal": ["Urad Dal", "उड़द दाल", "ਮਾਂਹ ਦੀ ਦਾਲ"], "masoor dal": ["Masoor Dal", "मसूर दाल", "ਮਸਰਾਂ ਦੀ ਦਾਲ"], "gud": ["Gud (Jaggery)", "गुड़", "ਗੁੜ"],
-  "garam masala": ["Garam Masala", "गरम मसाला", "ਗਰਮ ਮਸਾਲਾ"], "elaichi": ["Elaichi", "इलायची", "ਇਲਾਇਚੀ"], "laung": ["Laung", "लौंग", "ਲੌਂਗ"],
-  "hing": ["Hing", "हींग", "ਹਿੰਗ"], "ajwain": ["Ajwain", "अजवाइन", "ਅਜਵਾਇਣ"], "saunf": ["Saunf", "सौंफ", "ਸੌਂਫ"],
-  "kasuri methi": ["Kasuri Methi", "कसूरी मेथी", "ਕਸੂਰੀ ਮੇਥੀ"], "gobhi": ["Gobhi", "फूलगोभी", "ਫੁੱਲ ਗੋਭੀ"], "matar": ["Matar", "मटर", "ਮਟਰ"],
-  "bhindi": ["Bhindi", "भिंडी", "ਭਿੰਡੀ"], "baingan": ["Baingan", "बैंगन", "ਬੈਂਗਣ"], "lauki": ["Lauki / Ghiya", "लौकी", "ਘੀਆ"],
-  "karela": ["Karela", "करेला", "ਕਰੇਲਾ"], "shimla mirch": ["Shimla Mirch", "शिमला मिर्च", "ਸ਼ਿਮਲਾ ਮਿਰਚ"], "gajar": ["Gajar", "गाजर", "ਗਾਜਰ"],
-  "palak": ["Palak", "पालक", "ਪਾਲਕ"], "nimbu": ["Nimbu", "नींबू", "ਨਿੰਬੂ"], "lassi": ["Lassi", "लस्सी", "ਲੱਸੀ"],
-  "makhan": ["Makhan", "मक्खन", "ਮੱਖਣ"], "kaju": ["Kaju", "काजू", "ਕਾਜੂ"], "badam": ["Badam", "बादाम", "ਬਦਾਮ"],
-  "kishmish": ["Kishmish", "किशमिश", "ਸੌਗੀ"], "sabun": ["Sabun", "साबुन", "ਸਾਬਣ"], "surf": ["Surf / Detergent", "सर्फ़", "ਸਰਫ਼"]
+  "kali mirch": { en: "Kali Mirch", hi: "काली मिर्च", pa: "ਕਾਲੀ ਮਿਰਚ" },
+  "kali mirchi": { en: "Kali Mirch", hi: "काली मिर्च", pa: "ਕਾਲੀ ਮਿਰਚ" },
+  "besan": { en: "Besan", hi: "बेसन", pa: "ਵੇਸਣ" },
+  "sooji": { en: "Sooji", hi: "सूजी", pa: "ਸੂਜੀ" },
+  "maida": { en: "Maida", hi: "मैदा", pa: "ਮੈਦਾ" },
+  "poha": { en: "Poha", hi: "पोहा", pa: "ਪੋਹਾ" },
+  "dalia": { en: "Dalia", hi: "दलिया", pa: "ਦਲੀਆ" },
+  "rajma": { en: "Rajma", hi: "राजमा", pa: "ਰਾਜਮਾਂ" },
+  "chole": { en: "Chole", hi: "छोले", pa: "ਛੋਲੇ" },
+  "kala chana": { en: "Kala Chana", hi: "काला चना", pa: "ਕਾਲੇ ਛੋਲੇ" },
+  "urad dal": { en: "Urad Dal", hi: "उड़द दाल", pa: "ਮਾਂਹ ਦੀ ਦਾਲ" },
+  "masoor dal": { en: "Masoor Dal", hi: "मसूर दाल", pa: "ਮਸਰਾਂ ਦੀ ਦਾਲ" },
+  "gud": { en: "Gud (Jaggery)", hi: "गुड़", pa: "ਗੁੜ" },
+  "garam masala": { en: "Garam Masala", hi: "गरम मसाला", pa: "ਗਰਮ ਮਸਾਲਾ" },
+  "elaichi": { en: "Elaichi", hi: "इलायची", pa: "ਇਲਾਇਚੀ" },
+  "laung": { en: "Laung", hi: "लौंग", pa: "ਲੌਂਗ" },
+  "hing": { en: "Hing", hi: "हींग", pa: "ਹਿੰਗ" },
+  "ajwain": { en: "Ajwain", hi: "अजवाइन", pa: "ਅਜਵਾਇਣ" },
+  "saunf": { en: "Saunf", hi: "सौंफ", pa: "ਸੌਂਫ" },
+  "kasuri methi": { en: "Kasuri Methi", hi: "कसूरी मेथी", pa: "ਕਸੂਰੀ ਮੇਥੀ" },
+  "gobhi": { en: "Gobhi", hi: "फूलगोभी", pa: "ਫੁੱਲ ਗੋਭੀ" },
+  "matar": { en: "Matar", hi: "मटर", pa: "ਮਟਰ" },
+  "bhindi": { en: "Bhindi", hi: "भिंडी", pa: "ਭਿੰਡੀ" },
+  "baingan": { en: "Baingan", hi: "बैंगन", pa: "ਬੈਂਗਣ" },
+  "lauki": { en: "Lauki / Ghiya", hi: "लौकी", pa: "ਘੀਆ" },
+  "karela": { en: "Karela", hi: "करेला", pa: "ਕਰੇਲਾ" },
+  "shimla mirch": { en: "Shimla Mirch", hi: "शिमला मिर्च", pa: "ਸ਼ਿਮਲਾ ਮਿਰਚ" },
+  "gajar": { en: "Gajar", hi: "गाजर", pa: "ਗਾਜਰ" },
+  "palak": { en: "Palak", hi: "पालक", pa: "ਪਾਲਕ" },
+  "nimbu": { en: "Nimbu", hi: "नींबू", pa: "ਨਿੰਬੂ" },
+  "lassi": { en: "Lassi", hi: "लस्सी", pa: "ਲੱਸੀ" },
+  "makhan": { en: "Makhan", hi: "मक्खन", pa: "ਮੱਖਣ" },
+  "kaju": { en: "Kaju", hi: "काजू", pa: "ਕਾਜੂ" },
+  "badam": { en: "Badam", hi: "बादाम", pa: "ਬਦਾਮ" },
+  "kishmish": { en: "Kishmish", hi: "किशमिश", pa: "ਸੌਗੀ" },
+  "sabun": { en: "Sabun", hi: "साबुन", pa: "ਸਾਬਣ" },
+  "surf": { en: "Surf / Detergent", hi: "सर्फ़", pa: "ਸਰਫ਼" }
 };
 var base = [
-  [1,"Ration","Atta (Wheat Flour)","आटा","ਆਟਾ (ਕਣਕ)","5 kg"], [2,"Ration","Basmati Rice","चावल","ਬਾਸਮਤੀ ਚੌਲ","2 kg"],
-  [3,"Ration","Arhar / Toor Dal","अरहर दाल","ਅਰਹਰ ਦਾਲ","1 kg"], [4,"Ration","Moong Dal","मूंग दाल","ਮੂੰਗੀ ਦੀ ਦਾਲ","500 g"],
-  [5,"Ration","Chana Dal","चना दाल","ਛੋਲਿਆਂ ਦੀ ਦਾਲ","500 g"], [6,"Ration","Sugar (Cheeni)","चीनी","ਖੰਡ","2 kg"],
-  [7,"Ration","Chai Patti","चाय पत्ती","ਚਾਹ ਪੱਤੀ","500 g"], [8,"Ration","Cooking Oil","तेल","ਤੇਲ","1 L"],
-  [9,"Ration","Desi Ghee","देसी घी","ਦੇਸੀ ਘਿਓ","1 kg"], [10,"Masale","Haldi Powder","हल्दी","ਹਲਦੀ","250 g"],
-  [11,"Masale","Lal Mirch Powder","लाल मिर्च","ਲਾਲ ਮਿਰਚ","250 g"], [12,"Masale","Dhaniya Powder","धनिया पाउडर","ਧਨੀਆ ਪਾਊਡਰ","250 g"],
-  [13,"Masale","Jeera","जीरा","ਜ਼ੀਰਾ","100 g"], [14,"Masale","Salt (Namak)","नमक","ਲੂਣ","1 pkt"],
-  [15,"Sabzi","Aloo (Potato)","आलू","ਆਲੂ","2 kg"], [16,"Sabzi","Pyaz (Onion)","प्याज़","ਪਿਆਜ਼","2 kg"],
-  [17,"Sabzi","Tamatar (Tomato)","टमाटर","ਟਮਾਟਰ","1 kg"], [18,"Sabzi","Adrak & Lehsun","अदरक लहसुन","ਅਦਰਕ ਲਸਣ","250 g"],
-  [19,"Sabzi","Hari Mirch & Dhaniya","हरी मिर्च धनिया","ਹਰੀ ਮਿਰਚ ਧਨੀਆ","100 g"], [20,"Dairy","Milk (Doodh)","दूध","ਦੁੱਧ","1 L"],
-  [21,"Dairy","Dahi (Curd)","दही","ਦਹੀਂ","500 g"], [22,"Dairy","Paneer","पनीर","ਪਨੀਰ","250 g"],
-  [23,"Dairy","Bread / Butter","ब्रेड / मक्खन","ਬ੍ਰੈੱਡ / ਮੱਖਣ","1 pkt"]
-].map(function(x){ return { id:x[0], cat:x[1], en:x[2], hi:x[3], pa:x[4], qty:x[5], sel:false }; });
-var qtys = ["100 g","250 g","500 g","1 kg","2 kg","5 kg","10 kg","500 ml","1 L","1 pkt","2 pkt","1 doz"];
-var cats = ["All","Selected","Ration","Masale","Sabzi","Dairy"];
-var lang = localStorage.getItem("k_lang") || "en";
-var tab = "All";
-var items = JSON.parse(localStorage.getItem("k_v6") || "null") || base;
-
-function save() { localStorage.setItem("k_v6", JSON.stringify(items)); render(); }
-function setLang(l) { lang = l; localStorage.setItem("k_lang", l); render(); }
-function setTab(t) { tab = t; render(); }
-function tog(id) { items.forEach(function(i){ if(i.id===id) i.sel=!i.sel; }); save(); }
-function chg(id, v) { items.forEach(function(i){ if(i.id===id){ i.qty=v; i.sel=true; } }); save(); }
-function del(id) { if(confirm(ui[lang].del)){ items = items.filter(function(i){ return i.id!==id; }); save(); } }
-function clearAll() { items.forEach(function(i){ i.sel=false; }); save(); }
-function addCustom() {
-  var inp = document.getElementById("customItem"), v = inp.value.trim();
-  if(!v) return;
-  var tr = dict[v.toLowerCase()] || [v, v, v];
-  var c = (tab==="All"||tab==="Selected") ? "Ration" : tab;
-  items.unshift({ id:Date.now(), cat:c, en:tr[0], hi:tr[1], pa:tr[2], qty:"1 pkt", sel:true });
-  inp.value = ""; save();
-}
-function sendWhatsApp() {
-  var p = items.filter(function(i){ return i.sel; }), t = ui[lang];
-  if(!p.length) return alert(t.emp);
-  var nl = String.fromCharCode(10);
-  var msg = t.hdr + nl + nl + p.map(function(x, idx){ return (idx+1)+". "+(x[lang]||x.en)+" — *"+x.qty+"*"; }).join(nl);
+  { id: 1, cat: "Ration", en: "Atta (Wheat Flour)", hi: "आटा", pa: "ਆਟਾ (ਕਣਕ)", qty: "5 kg", sel: false },
+  { id: 2, cat: "Ration", en: "Basmati Rice", hi: "बासमती चावल", pa: "ਬਾਸਮਤੀ ਚੌਲ", qty: "2 kg", sel: false },
+  { id: 3, cat: "Ration", en: "Arhar / Toor Dal", hi: "अरहर दाल", pa: "ਅਰਹਰ ਦਾਲ", qty: "1 kg", sel: false },
+  { id: 4, cat: "Ration", en: "Moong Dal", hi: "मूंग दाल", pa: "ਮੂੰਗੀ ਦੀ ਦਾਲ", qty: "500 g", sel: false },
+  { id: 5, cat: "Ration", en: "Chana Dal", hi: "चना दाल", pa: "ਛੋਲਿਆਂ ਦੀ ਦਾਲ", qty: "500 g", sel: false },
+  { id: 6, cat: "Ration", en: "Sugar (Cheeni)", hi: "चीनी", pa: "ਖੰਡ", qty: "2 kg", sel: false },
+  { id: 7, cat: "Ration", en: "Chai Patti", hi: "चाय पत्ती", pa: "ਚਾਹ ਪੱਤੀ", qty: "500 g", sel: false },
+  { id: 8, cat: "Ration", en: "Cooking Oil", hi: "खाना पकाने का तेल", pa: "ਖਾਣਾ ਬਣਾਉਣ ਵਾਲਾ ਤੇਲ", qty: "1 L", sel: false },
+  { id: 9, cat: "Ration", en: "Desi Ghee", hi: "देसी घी", pa: "ਦੇਸੀ ਘਿਓ", qty: "1 kg", sel: false },
+  { id: 10, cat: "Masale", en: "Haldi Powder", hi: "हल्दी पाउडर", pa: "ਹਲਦੀ ਪਾਊਡਰ", qty: "250 g", sel: false },
+  { id: 11, cat: "Masale", en: "Lal Mirch Powder", hi: "लाल मिर्च पाउडर", pa: "ਲਾਲ ਮਿਰਚ ਪਾਊਡਰ", qty: "250 g", sel: false },
+  { id: 12, cat: "Masale", en: "Dhaniya Powder", hi: "धनिया पाउडर", pa: "ਧਨੀਆ ਪਾਊਡਰ", qty: "250 g", sel: false },
+  { id: 13, cat: "Masale", en: "Jeera (Cumin)", hi: "जीरा", pa: "ਜ਼ੀਰਾ", qty: "100 g", sel: false },
+  { id: 14, cat: "Masale", en: "Salt (Namak)", hi: "नमक", pa: "ਲੂਣ (ਨਮਕ)", qty: "1 pkt", sel: false },
+  { id: 15, cat: "Sabzi", en: "Aloo (Potato)", hi: "आलू", pa: "ਆਲੂ", qty: "2 kg", sel: false },
+  { id: 16, cat: "Sabzi", en: "Pyaz (Onion)", hi: "प्याज़", pa: "ਪਿਆਜ਼", qty: "2 kg", sel: false },
+  { id: 17, cat: "Sabzi", en: "Tamatar (Tomato)", hi: "टमाटर", pa: "ਟਮਾਟਰ", qty: "1 kg", sel: false },
+  { id: 18, cat: "Sabzi", en: "Adrak & Lehsun", hi: "अदरक और लहसुन", pa: "ਅਦਰਕ ਤੇ ਲਸਣ", qty: "250 g", sel: false },
+  { id: 19, cat: "Sabzi", en: "Hari Mirch & Dhaniya", hi: "हरी मिर्च धनिया", pa: "ਹਰੀ ਮਿਰਚ ਧਨੀਆ", qty: "100 g", sel: false },
+  { id: 20, cat: "Dairy", en: "Milk (Doodh)", hi: "दूध", pa: "ਦੁੱਧ", qty: "1 L", sel: false },
+  { id: 21, cat: "Dairy", en: "Dahi (Curd)", hi: "दही", pa: "ਦਹੀਂ", qty: "500 g", sel: false },
