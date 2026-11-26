@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kirana & Sabzi List</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: #f4f6f8; color: #1f2937; padding-bottom: 90px; }
+    header { background: #15803d; color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .header-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    header h1 { margin: 0; font-size: 19px; }
+    header p { margin: 4px 0 0; font-size: 13px; opacity: 0.92; }
+    .lang-bar { display: flex; background: rgba(255,255,255,0.18); border-radius: 8px; padding: 2px; }
+    .lang-btn { border: none; background: transparent; color: white; padding: 5px 8px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+    .lang-btn.active { background: white; color: #15803d; }
+    .tabs { display: flex; gap: 8px; padding: 12px 14px; overflow-x: auto; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .tab { padding: 8px 14px; border-radius: 20px; border: 1px solid #d1d5db; background: #f9fafb; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+    .tab.active { background: #15803d; color: white; border-color: #15803d; }
+    .add-box { display: flex; gap: 8px; padding: 12px 14px; }
+    .add-box input { flex: 1; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 15px; }
+    .add-box button { background: #15803d; color: white; border: none; border-radius: 10px; padding: 0 16px; font-weight: 600; font-size: 15px; }
+    .list { padding: 0 14px; display: flex; flex-direction: column; gap: 10px; }
+    .card { background: white; padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 2px solid transparent; }
+    .card.selected { border-color: #16a34a; background: #f0fdf4; }
+    .item-info { flex: 1; cursor: pointer; }
+    .item-name { font-size: 16px; font-weight: 600; }
+    .item-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+    .qty-controls { display: flex; align-items: center; gap: 6px; }
+    select { padding: 6px 8px; border-radius: 8px; border: 1px solid #d1d5db; font-size: 14px; background: white; }
+    .check-btn { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #16a34a; background: white; color: #16a34a; font-weight: bold; font-size: 16px; cursor: pointer; }
+    .card.selected .check-btn { background: #16a34a; color: white; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px 14px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
+    .clear-btn { padding: 12px 14px; border-radius: 10px; border: 1px solid #ef4444; color: #ef4444; background: white; font-weight: 600; }
+    .wa-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; background: #25D366; color: white; font-size: 16px; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <h1 id="appTitle">🛒 Kirana & Sabzi List</h1>
+    <div class="lang-bar">
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
+      <button class="lang-btn" id="btn-pa" onclick="setLang('pa')">ਪੰਜਾਬੀ</button>
+    </div>
+  </div>
+  <p id="appSub">Tap items to add & send on WhatsApp</p>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="add-box">
+  <input type="text" id="customItem" placeholder="Add custom item..." />
+  <button id="addBtn" onclick="addCustom()">+ Add</button>
+</div>
+
+<div class="list" id="itemList"></div>
+
+<div class="bottom-bar">
+  <button class="clear-btn" id="clearBtn" onclick="clearAll()">Clear</button>
+  <button class="wa-btn" onclick="sendWhatsApp()"><span id="waLabel">Send to WhatsApp</span> (<span id="count">0</span>)</button>
+</div>
+
+<script>
+  const uiText = {
+    en: {
+      title: "🛒 Kirana & Sabzi List",
+      sub: "Tap items to add & send on WhatsApp",
+      placeholder: "Add custom item (e.g. Besan, Paneer)...",
+      add: "+ Add",
+      clear: "Clear",
+      wa: "Send to WhatsApp",
+      alertEmpty: "Please select at least 1 item first!",
+      waHeader: "*🛒 Ghar Ki List:*\n\n",
+      cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" }
+    },
+    hi: {
+      title: "🛒 राशन और सब्ज़ी लिस्ट",
+      sub: "सामान चुनें और व्हाट्सएप पर भेजें",
+      placeholder: "नया सामान लिखें (जैसे बेसन, पनीर)...",
+      add: "+ जोड़ें",
+      clear: "साफ़ करें",
+      wa: "व्हाट्सएप पर भेजें",
+      alertEmpty: "कृपया पहले कम से कम 1 सामान चुनें!",
+      waHeader: "*🛒 घर का सामान (लिस्ट):*\n\n",
+      cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" }
+    },
+    pa: {
+      title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ",
+      sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
+      placeholder: "ਨਵਾਂ ਸਮਾਨ ਲਿਖੋ (ਜਿਵੇਂ ਵੇਸਣ, ਪਨੀਰ)...",
+      add: "+ ਜੋੜੋ",
+      clear: "ਸਾਫ਼ ਕਰੋ",
+      wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
+      alertEmpty: "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!",
+      waHeader: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*\n\n",
+      cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ ਹੋਇਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" }
+    }
+  };
+
+  const defaultItems = [
+    { id: 1, cat: "Ration", en: "Atta (Wheat Flour)", hi: "आटा", pa: "ਆਟਾ (ਕਣਕ)", qty: "5 kg", selected: false },
+    { id: 2, cat: "Ration", en: "Basmati Rice", hi: "बासमती चावल", pa: "ਬਾਸਮਤੀ ਚੌਲ", qty: "2 kg", selected: false },
+    { id: 3, cat: "Ration", en: "Toor / Arhar Dal", hi: "अरहर दाल", pa: "ਅਰਹਰ ਦਾਲ", qty: "1 kg", selected: false },
+    { id: 4, cat: "Ration", en: "Moong Dal", hi: "मूंग दाल", pa: "ਮੂੰਗੀ ਦੀ ਦਾਲ", qty: "500 g", selected: false },
+    { id: 5, cat: "Ration", en: "Chana Dal", hi: "चना दाल", pa: "ਛੋਲਿਆਂ ਦੀ ਦਾਲ", qty: "500 g", selected: false },
+    { id: 6, cat: "Ration", en: "Sugar (Cheeni)", hi: "चीनी", pa: "ਖੰਡ", qty: "2 kg", selected: false },
+    { id: 7, cat: "Ration", en: "Tea Leaves (Chai Patti)", hi: "चाय पत्ती", pa: "ਚਾਹ ਪੱਤੀ", qty: "500 g", selected: false },
+    { id: 8, cat: "Ration", en: "Cooking / Mustard Oil", hi: "सरसों / खाना पकाने का तेल", pa: "ਸਰ੍ਹੋਂ / ਖਾਣਾ ਬਣਾਉਣ ਵਾਲਾ ਤੇਲ", qty: "1 L", selected: false },
+    { id: 9, cat: "Ration", en: "Desi Ghee", hi: "देसी घी", pa: "ਦੇਸੀ ਘਿਓ", qty: "1 kg", selected: false },
+    { id: 10, cat: "Masale", en: "Haldi Powder", hi: "हल्दी पाउडर", pa: "ਹਲਦੀ ਪਾਊਡਰ", qty: "250 g", selected: false },
+    { id: 11, cat: "Masale", en: "Lal Mirch Powder", hi: "लाल मिर्च पाउडर", pa: "ਲਾਲ ਮਿਰਚ ਪਾਊਡਰ", qty: "250 g", selected: false },
+    { id: 12, cat: "Masale", en: "Dhaniya Powder", hi: "धनिया पाउडर", pa: "ਧਨੀਆ ਪਾਊਡਰ", qty: "250 g", selected: false },
+    { id: 13, cat: "Masale", en: "Jeera (Cumin)", hi: "जीरा", pa: "ਜ਼ੀਰਾ", qty: "100 g", selected: false },
+    { id: 14, cat: "Masale", en: "Salt (Namak)", hi: "नमक", pa: "ਲੂਣ (ਨਮਕ)", qty: "1 pkt", selected: false },
+    { id: 15, cat: "Sabzi", en: "Aloo (Potato)", hi: "आलू", pa: "ਆਲੂ", qty: "2 kg", selected: false },
+    { id: 16, cat: "Sabzi", en: "Pyaz (Onion)", hi: "प्याज़", pa: "ਪਿਆਜ਼", qty: "2 kg", selected: false },
+    { id: 17, cat: "Sabzi", en: "Tamatar (Tomato)", hi: "टमाटर", pa: "ਟਮਾਟਰ", qty: "1 kg", selected: false },
+    { id: 18, cat: "Sabzi", en: "Adrak & Lehsun", hi: "अदरक और लहसुन", pa: "ਅਦਰਕ ਤੇ ਲਸਣ", qty: "250 g", selected: false },
+    { id: 19, cat: "Sabzi", en: "Hari Mirch & Dhaniya", hi: "हरी मिर्च और हरा धनिया", pa: "ਹਰੀ ਮਿਰਚ ਤੇ ਹਰਾ ਧਨੀਆ", qty: "100 g", selected: false },
+    { id: 20, cat: "Dairy", en: "Milk (Doodh)", hi: "दूध", pa: "ਦੁੱਧ", qty: "1 L", selected: false },
+    { id: 21, cat: "Dairy", en: "Dahi (Curd)", hi: "दही", pa: "ਦਹੀਂ", qty: "500 g", selected: false },
+    { id: 22, cat: "Dairy", en: "Paneer", hi: "पनीर", pa: "ਪਨੀਰ", qty: "250 g", selected: false },
+    { id: 23, cat: "Dairy", en: "Bread / Butter", hi: "ब्रेड / मक्खन", pa: "ਬ੍ਰੈੱਡ / ਮੱਖਣ", qty: "1 pkt", selected: false }
+  ];
+
+  const quantities = ["100 g", "250 g", "500 g", "1 kg", "2 kg", "5 kg", "10 kg", "500 ml", "1 L", "1 pkt", "2 pkt", "1 doz"];
+  const catKeys = ["All", "Selected", "Ration", "Masale", "Sabzi", "Dairy"];
+
+  let lang = localStorage.getItem("kirana_lang") || "en";
+  let currentTab = "All";
+  let items = JSON.parse(localStorage.getItem("kirana_items_v2")) || defaultItems;
+
+  function setLang(newLang) {
+    lang = newLang;
+    localStorage.setItem("kirana_lang", lang);
+    render();
+  }
+
+  function save() {
+    localStorage.setItem("kirana_items_v2", JSON.stringify(items));
+    render();
+  }
+
+  function toggleItem(id) {
+    items = items.map(i => i.id === id ? { ...i, selected: !i.selected } : i);
+    save();
+  }
+
+  function changeQty(id, val) {
+    items = items.map(i => i.id === id ? { ...i, qty: val, selected: true } : i);
+    save();
+  }
+
+  function addCustom() {
+    const input = document.getElementById("customItem");
+    const name = input.value.trim();
+    if (!name) return;
+    items.unshift({ id: Date.now(), cat: "Ration", en: name, hi: name, pa: name, qty: "1 pkt", selected: true });
+    input.value = "";
+    save();
+  }
+
+  function clearAll() {
+    items = items.map(i => ({ ...i, selected: false }));
+    save();
+  }
+
+  function sendWhatsApp() {
+    const picked = items.filter(i => i.selected);
+    const t = uiText[lang];
+    if (picked.length === 0) {
+      alert(t.alertEmpty);
+      return;
+    }
+    let text = t.waHeader;
+    picked.forEach((item, idx) => {
+      const displayName = item[lang] || item.en;
