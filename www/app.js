@@ -143,7 +143,7 @@ function sendWhatsApp() {
     lines.push((i + 1) + ". " + displayName + " — *" + picked[i].qty + "*");
   }
   var text = lines.join(NL);
-  window.location.href = "https://wa.me" + encodeURIComponent(text);
+  window.location.href = "whatsapp://send?text=" + encodeURIComponent(text);
 }
 
 function render() {
