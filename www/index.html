@@ -41,9 +41,9 @@
   <div class="header-top">
     <h1 id="appTitle">🛒 Kirana & Sabzi List</h1>
     <div class="lang-bar">
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
-      <button class="lang-btn" id="btn-pa" onclick="setLang('pa')">ਪੰਜਾਬੀ</button>
+      <button type="button" class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button type="button" class="lang-btn" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
+      <button type="button" class="lang-btn" id="btn-pa" onclick="setLang('pa')">ਪੰਜਾਬੀ</button>
     </div>
   </div>
   <p id="appSub">Tap items to add & send on WhatsApp</p>
@@ -53,17 +53,19 @@
 
 <div class="add-box">
   <input type="text" id="customItem" placeholder="Add custom item..." />
-  <button id="addBtn" onclick="addCustom()">+ Add</button>
+  <button type="button" id="addBtn" onclick="addCustom()">+ Add</button>
 </div>
 
 <div class="list" id="itemList"></div>
 
 <div class="bottom-bar">
-  <button class="clear-btn" id="clearBtn" onclick="clearAll()">Clear</button>
-  <button class="wa-btn" onclick="sendWhatsApp()"><span id="waLabel">Send to WhatsApp</span> (<span id="count">0</span>)</button>
+  <button type="button" class="clear-btn" id="clearBtn" onclick="clearAll()">Clear</button>
+  <button type="button" class="wa-btn" onclick="sendWhatsApp()"><span id="waLabel">Send to WhatsApp</span> (<span id="count">0</span>)</button>
 </div>
 
 <script>
+  const NL = String.fromCharCode(10);
+
   const uiText = {
     en: {
       title: "🛒 Kirana & Sabzi List",
@@ -73,7 +75,7 @@
       clear: "Clear",
       wa: "Send to WhatsApp",
       alertEmpty: "Please select at least 1 item first!",
-      waHeader: "*🛒 Ghar Ki List:*\n\n",
+      waHeader: "*🛒 Ghar Ki List:*",
       cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" }
     },
     hi: {
@@ -84,7 +86,7 @@
       clear: "साफ़ करें",
       wa: "व्हाट्सएप पर भेजें",
       alertEmpty: "कृपया पहले कम से कम 1 सामान चुनें!",
-      waHeader: "*🛒 घर का सामान (लिस्ट):*\n\n",
+      waHeader: "*🛒 घर का सामान (लिस्ट):*",
       cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" }
     },
     pa: {
@@ -95,7 +97,7 @@
       clear: "ਸਾਫ਼ ਕਰੋ",
       wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
       alertEmpty: "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!",
-      waHeader: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*\n\n",
+      waHeader: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*",
       cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ ਹੋਇਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" }
     }
   };
@@ -131,7 +133,14 @@
 
   let lang = localStorage.getItem("kirana_lang") || "en";
   let currentTab = "All";
-  let items = JSON.parse(localStorage.getItem("kirana_items_v2")) || defaultItems;
+  let items = [];
+
+  try {
+    const saved = JSON.parse(localStorage.getItem("kirana_items_v3"));
+    items = (Array.isArray(saved) && saved.length > 0) ? saved : defaultItems;
+  } catch (e) {
+    items = defaultItems;
+  }
 
   function setLang(newLang) {
     lang = newLang;
@@ -140,7 +149,7 @@
   }
 
   function save() {
-    localStorage.setItem("kirana_items_v2", JSON.stringify(items));
+    localStorage.setItem("kirana_items_v3", JSON.stringify(items));
     render();
   }
 
@@ -170,11 +179,4 @@
 
   function sendWhatsApp() {
     const picked = items.filter(i => i.selected);
-    const t = uiText[lang];
-    if (picked.length === 0) {
-      alert(t.alertEmpty);
-      return;
-    }
-    let text = t.waHeader;
-    picked.forEach((item, idx) => {
-      const displayName = item[lang] || item.en;
+    const t = uiText[lang] || uiText.en;
