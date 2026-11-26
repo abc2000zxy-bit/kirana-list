@@ -4,7 +4,7 @@ var uiText = {
   en: {
     title: "🛒 Kirana & Sabzi List",
     sub: "Tap items to add & send on WhatsApp",
-    placeholder: "Add custom item (e.g. Besan, Paneer)...",
+    placeholder: "Add custom item (e.g. Kali Mirch, Besan)...",
     add: "+ Add",
     clear: "Uncheck All",
     wa: "Send to WhatsApp",
@@ -16,7 +16,7 @@ var uiText = {
   hi: {
     title: "🛒 राशन और सब्ज़ी लिस्ट",
     sub: "सामान चुनें और व्हाट्सएप पर भेजें",
-    placeholder: "नया सामान लिखें (जैसे बेसन, पनीर)...",
+    placeholder: "नया सामान लिखें (जैसे काली मिर्च, बेसन)...",
     add: "+ जोड़ें",
     clear: "सब हटाएं",
     wa: "व्हाट्सएप पर भेजें",
@@ -28,7 +28,7 @@ var uiText = {
   pa: {
     title: "🛒 ਰਾਸ਼ਨ ਤੇ ਸਬਜ਼ੀ ਲਿਸਟ",
     sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
-    placeholder: "ਨਵਾਂ ਸਮਾਨ ਲਿਖੋ (ਜਿਵੇਂ ਵੇਸਣ, ਪਨੀਰ)...",
+    placeholder: "ਨਵਾਂ ਸਮਾਨ ਲਿਖੋ (ਜਿਵੇਂ ਕਾਲੀ ਮਿਰਚ, ਵੇਸਣ)...",
     add: "+ ਜੋੜੋ",
     clear: "ਸਭ ਅਣ-ਚੁਣੋ",
     wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
@@ -38,6 +38,70 @@ var uiText = {
     cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ ਹੋਇਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" }
   }
 };
+
+var autoDict = [
+  { keys: ["kali mirch", "black pepper", "काली मिर्च", "ਕਾਲੀ ਮਿਰਚ"], en: "Kali Mirch (Black Pepper)", hi: "काली मिर्च", pa: "ਕਾਲੀ ਮਿਰਚ" },
+  { keys: ["besan", "gram flour", "बेसन", "ਵੇਸਣ"], en: "Besan (Gram Flour)", hi: "बेसन", pa: "ਵੇਸਣ" },
+  { keys: ["sooji", "suji", "rava", "semolina", "सूजी", "ਸੂਜੀ"], en: "Sooji / Rava", hi: "सूजी", pa: "ਸੂਜੀ" },
+  { keys: ["maida", "मैदा", "ਮੈਦਾ"], en: "Maida", hi: "मैदा", pa: "ਮੈਦਾ" },
+  { keys: ["poha", "पोहा", "ਪੋਹਾ"], en: "Poha", hi: "पोहा", pa: "ਪੋਹਾ" },
+  { keys: ["dalia", "daliya", "दलिया", "ਦਲੀਆ"], en: "Dalia", hi: "दलिया", pa: "ਦਲੀਆ" },
+  { keys: ["rajma", "kidney beans", "राजमा", "ਰਾਜਮਾਂ"], en: "Rajma", hi: "राजमा", pa: "ਰਾਜਮਾਂ" },
+  { keys: ["chole", "chhole", "kabuli chana", "छोले", "ਛੋਲੇ"], en: "Kabuli Chana (Chole)", hi: "काबुली चना (छोले)", pa: "ਕਾਬੁਲੀ ਛੋਲੇ" },
+  { keys: ["kala chana", "काला चना", "ਕਾਲੇ ਛੋਲੇ"], en: "Kala Chana", hi: "काला चना", pa: "ਕਾਲੇ ਛੋਲੇ" },
+  { keys: ["urad dal", "mah di dal", "उड़द दाल", "ਮਾਂਹ ਦੀ ਦਾਲ"], en: "Urad / Mah Dal", hi: "उड़द दाल", pa: "ਮਾਂਹ ਦੀ ਦਾਲ" },
+  { keys: ["masoor dal", "मसूर दाल", "ਮਸਰਾਂ ਦੀ ਦਾਲ"], en: "Masoor Dal", hi: "मसूर दाल", pa: "ਮਸਰਾਂ ਦੀ ਦਾਲ" },
+  { keys: ["sabudana", "साबूदाना", "ਸਾਬੂਦਾਣਾ"], en: "Sabudana", hi: "साबूदाना", pa: "ਸਾਬੂਦਾਣਾ" },
+  { keys: ["gud", "jaggery", "गुड़", "ਗੁੜ"], en: "Gud (Jaggery)", hi: "गुड़", pa: "ਗੁੜ" },
+  { keys: ["shakkar", "शक्कर", "ਸ਼ੱਕਰ"], en: "Shakkar", hi: "शक्कर", pa: "ਸ਼ੱਕਰ" },
+  { keys: ["garam masala", "गरम मसाला", "ਗਰਮ ਮਸਾਲਾ"], en: "Garam Masala", hi: "गरम मसाला", pa: "ਗਰਮ ਮਸਾਲਾ" },
+  { keys: ["elaichi", "cardamom", "इलायची", "ਇਲਾਇਚੀ"], en: "Elaichi (Cardamom)", hi: "इलायची", pa: "ਇਲਾਇਚੀ" },
+  { keys: ["laung", "clove", "लौंग", "ਲੌਂਗ"], en: "Laung (Cloves)", hi: "लौंग", pa: "ਲੌਂਗ" },
+  { keys: ["dalchini", "cinnamon", "दालचीनी", "ਦਾਲਚੀਨੀ"], en: "Dalchini (Cinnamon)", hi: "दालचीनी", pa: "ਦਾਲਚੀਨੀ" },
+  { keys: ["hing", "heeng", "हींग", "ਹਿੰਗ"], en: "Hing (Asafoetida)", hi: "हींग", pa: "ਹਿੰਗ" },
+  { keys: ["ajwain", "अजवाइन", "ਅਜਵਾਇਣ"], en: "Ajwain", hi: "अजवाइन", pa: "ਅਜਵਾਇਣ" },
+  { keys: ["saunf", "fennel", "सौंफ", "ਸੌਂਫ"], en: "Saunf (Fennel)", hi: "सौंफ", pa: "ਸੌਂਫ" },
+  { keys: ["rai", "sarson", "mustard seeds", "राई", "ਰਾਈ"], en: "Rai / Mustard Seeds", hi: "राई / सरसों", pa: "ਰਾਈ / ਸਰ੍ਹੋਂ" },
+  { keys: ["methi", "fenugreek", "मेथी", "ਮੇਥੀ"], en: "Methi (Fenugreek)", hi: "मेथी", pa: "ਮੇਥੀ" },
+  { keys: ["kasuri methi", "कसूरी मेथी", "ਕਸੂਰੀ ਮੇਥੀ"], en: "Kasuri Methi", hi: "कसूरी मेथी", pa: "ਕਸੂਰੀ ਮੇਥੀ" },
+  { keys: ["amchur", "amchoor", "अमचूर", "ਅਮਚੂਰ"], en: "Amchur Powder", hi: "अमचूर पाउडर", pa: "ਅਮਚੂਰ ਪਾਊਡਰ" },
+  { keys: ["chaat masala", "चाट मसाला", "ਚਾਟ ਮਸਾਲਾ"], en: "Chaat Masala", hi: "चाट मसाला", pa: "ਚਾਟ ਮਸਾਲਾ" },
+  { keys: ["gobhi", "gobi", "cauliflower", "गोभी", "ਗੋਭੀ"], en: "Gobhi (Cauliflower)", hi: "फूलगोभी", pa: "ਫੁੱਲ ਗੋਭੀ" },
+  { keys: ["patta gobhi", "band gobhi", "cabbage", "पत्ता गोभी", "ਬੰਦ ਗੋਭੀ"], en: "Patta Gobhi (Cabbage)", hi: "पत्ता गोभी", pa: "ਬੰਦ ਗੋਭੀ" },
+  { keys: ["matar", "peas", "मटर", "ਮਟਰ"], en: "Matar (Peas)", hi: "मटर", pa: "ਮਟਰ" },
+  { keys: ["bhindi", "ladyfinger", "okra", "भिंडी", "ਭਿੰਡੀ"], en: "Bhindi (Okra)", hi: "भिंडी", pa: "ਭਿੰਡੀ" },
+  { keys: ["baingan", "brinjal", "eggplant", "बैंगन", "ਬੈਂਗਣ"], en: "Baingan (Brinjal)", hi: "बैंगन", pa: "ਬੈਂਗਣ" },
+  { keys: ["lauki", "ghiya", "bottle gourd", "लौकी", "घीया", "ਘੀਆ"], en: "Lauki / Ghiya", hi: "लौकी (घीया)", pa: "ਘੀਆ (ਲੌਕੀ)" },
+  { keys: ["karela", "bitter gourd", "करेला", "ਕਰੇਲਾ"], en: "Karela", hi: "करेला", pa: "ਕਰੇਲਾ" },
+  { keys: ["shimla mirch", "capsicum", "शिमला मिर्च", "ਸ਼ਿਮਲਾ ਮਿਰਚ"], en: "Shimla Mirch (Capsicum)", hi: "शिमला मिर्च", pa: "ਸ਼ਿਮਲਾ ਮਿਰਚ" },
+  { keys: ["gajar", "carrot", "गाजर", "ਗਾਜਰ"], en: "Gajar (Carrot)", hi: "गाजर", pa: "ਗਾਜਰ" },
+  { keys: ["mooli", "radish", "मूली", "ਮੂਲੀ"], en: "Mooli (Radish)", hi: "मूली", pa: "ਮੂਲੀ" },
+  { keys: ["palak", "spinach", "पालक", "ਪਾਲਕ"], en: "Palak (Spinach)", hi: "पालक", pa: "ਪਾਲਕ" },
+  { keys: ["nimbu", "lemon", "नींबू", "ਨਿੰਬੂ"], en: "Nimbu (Lemon)", hi: "नींबू", pa: "ਨਿੰਬੂ" },
+  { keys: ["kheera", "cucumber", "खीरा", "ਖੀਰਾ"], en: "Kheera (Cucumber)", hi: "खीरा", pa: "ਖੀਰਾ" },
+  { keys: ["lassi", "लस्सी", "ਲੱਸੀ"], en: "Lassi", hi: "लस्सी", pa: "ਲੱਸੀ" },
+  { keys: ["makhan", "butter", "मक्खन", "ਮੱਖਣ"], en: "Makhan (Butter)", hi: "मक्खन", pa: "ਮੱਖਣ" },
+  { keys: ["malai", "cream", "मलाई", "ਮਲਾਈ"], en: "Malai / Cream", hi: "मलाई", pa: "ਮਲਾਈ" },
+  { keys: ["khoya", "mawa", "खोया", "ਖੋਆ"], en: "Khoya / Mawa", hi: "खोया (मावा)", pa: "ਖੋਆ" },
+  { keys: ["kaju", "cashew", "काजू", "ਕਾਜੂ"], en: "Kaju (Cashews)", hi: "काजू", pa: "ਕਾਜੂ" },
+  { keys: ["badam", "almond", "बादाम", "ਬਦਾਮ"], en: "Badam (Almonds)", hi: "बादाम", pa: "ਬਦਾਮ" },
+  { keys: ["kishmish", "raisins", "किशमिश", "ਸੌਗੀ"], en: "Kishmish (Raisins)", hi: "किशमिश", pa: "ਸੌਗੀ (ਕਿਸ਼ਮਿਸ਼)" },
+  { keys: ["sabun", "soap", "साबुन", "ਸਾਬਣ"], en: "Soap (Sabun)", hi: "साबुन", pa: "ਸਾਬਣ" },
+  { keys: ["surf", "detergent", "सर्फ़", "ਸਰਫ਼"], en: "Detergent / Surf", hi: "सर्फ़ / डिटर्जेंट", pa: "ਸਰਫ਼" }
+];
+
+function translateCustom(rawName) {
+  var clean = rawName.trim().toLowerCase();
+  for (var i = 0; i < autoDict.length; i++) {
+    var entry = autoDict[i];
+    for (var k = 0; k < entry.keys.length; k++) {
+      if (clean === entry.keys[k]) {
+        return { en: entry.en, hi: entry.hi, pa: entry.pa };
+      }
+    }
+  }
+  return { en: rawName.trim(), hi: rawName.trim(), pa: rawName.trim() };
+}
 
 var defaultItems = [
   { id: 1, cat: "Ration", en: "Atta (Wheat Flour)", hi: "आटा", pa: "ਆਟਾ (ਕਣਕ)", qty: "5 kg", selected: false },
@@ -73,146 +137,3 @@ var currentTab = "All";
 var items = defaultItems;
 
 try {
-  var savedLang = localStorage.getItem("kirana_lang");
-  if (savedLang && uiText[savedLang]) lang = savedLang;
-  var savedItems = JSON.parse(localStorage.getItem("kirana_items_v4"));
-  if (Array.isArray(savedItems) && savedItems.length > 0) items = savedItems;
-} catch (e) {}
-
-function setLang(newLang) {
-  lang = newLang;
-  try { localStorage.setItem("kirana_lang", lang); } catch (e) {}
-  render();
-}
-
-function setTab(newTab) {
-  currentTab = newTab;
-  render();
-}
-
-function save() {
-  try { localStorage.setItem("kirana_items_v4", JSON.stringify(items)); } catch (e) {}
-  render();
-}
-
-function toggleItem(id) {
-  for (var k = 0; k < items.length; k++) {
-    if (items[k].id === id) {
-      items[k].selected = !items[k].selected;
-    }
-  }
-  save();
-}
-
-function deleteItem(id) {
-  var t = uiText[lang] || uiText.en;
-  if (!confirm(t.confirmDel)) return;
-  var updated = [];
-  for (var k = 0; k < items.length; k++) {
-    if (items[k].id !== id) updated.push(items[k]);
-  }
-  items = updated;
-  save();
-}
-
-function changeQty(id, val) {
-  for (var k = 0; k < items.length; k++) {
-    if (items[k].id === id) {
-      items[k].qty = val;
-      items[k].selected = true;
-    }
-  }
-  save();
-}
-
-function addCustom() {
-  var input = document.getElementById("customItem");
-  var name = input.value.trim();
-  if (!name) return;
-  var targetCat = (currentTab === "All" || currentTab === "Selected") ? "Ration" : currentTab;
-  items.unshift({ id: Date.now(), cat: targetCat, en: name, hi: name, pa: name, qty: "1 pkt", selected: true });
-  input.value = "";
-  save();
-}
-
-function clearAll() {
-  for (var k = 0; k < items.length; k++) {
-    items[k].selected = false;
-  }
-  save();
-}
-
-function sendWhatsApp() {
-  var picked = [];
-  for (var k = 0; k < items.length; k++) {
-    if (items[k].selected) picked.push(items[k]);
-  }
-  var t = uiText[lang] || uiText.en;
-  if (picked.length === 0) {
-    alert(t.alertEmpty);
-    return;
-  }
-  var lines = [t.waHeader, ""];
-  for (var i = 0; i < picked.length; i++) {
-    var displayName = picked[i][lang] || picked[i].en;
-    lines.push((i + 1) + ". " + displayName + " — *" + picked[i].qty + "*");
-  }
-  var text = lines.join(NL);
-  window.location.href = "whatsapp://send?text=" + encodeURIComponent(text);
-}
-
-function render() {
-  var t = uiText[lang] || uiText.en;
-  document.getElementById("appTitle").innerText = t.title;
-  document.getElementById("appSub").innerText = t.sub;
-  document.getElementById("customItem").placeholder = t.placeholder;
-  document.getElementById("addBtn").innerText = t.add;
-  document.getElementById("clearBtn").innerText = t.clear;
-  document.getElementById("waLabel").innerText = t.wa;
-
-  var langs = ["en", "hi", "pa"];
-  for (var l = 0; l < langs.length; l++) {
-    var btn = document.getElementById("btn-" + langs[l]);
-    if (btn) btn.className = "lang-btn" + (lang === langs[l] ? " active" : "");
-  }
-
-  var tabsHtml = "";
-  for (var c = 0; c < catKeys.length; c++) {
-    var key = catKeys[c];
-    tabsHtml += '<button type="button" class="tab ' + (currentTab === key ? 'active' : '') + '" onclick="setTab(\'' + key + '\')">' + t.cats[key] + '</button>';
-  }
-  document.getElementById("tabs").innerHTML = tabsHtml;
-
-  var listHtml = "";
-  var selectedCount = 0;
-  for (var j = 0; j < items.length; j++) {
-    var item = items[j];
-    if (item.selected) selectedCount++;
-    if (currentTab === "Selected" && !item.selected) continue;
-    if (currentTab !== "All" && currentTab !== "Selected" && item.cat !== currentTab) continue;
-
-    var mainTitle = item[lang] || item.en;
-    var subTitle = (lang === "en") ? (item.hi + " • " + item.pa) : item.en;
-
-    var optsHtml = "";
-    for (var q = 0; q < quantities.length; q++) {
-      optsHtml += '<option value="' + quantities[q] + '"' + (item.qty === quantities[q] ? ' selected' : '') + '>' + quantities[q] + '</option>';
-    }
-
-    listHtml += '<div class="card ' + (item.selected ? 'selected' : '') + '">' +
-      '<div class="item-info" onclick="toggleItem(' + item.id + ')">' +
-        '<div class="item-name">' + mainTitle + '</div>' +
-        '<div class="item-sub">' + subTitle + '</div>' +
-      '</div>' +
-      '<div class="qty-controls">' +
-        '<select onchange="changeQty(' + item.id + ', this.value)">' + optsHtml + '</select>' +
-        '<button type="button" class="check-btn" onclick="toggleItem(' + item.id + ')">' + (item.selected ? '✓' : '+') + '</button>' +
-        '<button type="button" onclick="deleteItem(' + item.id + ')" style="border:none;background:#fee2e2;color:#dc2626;border-radius:8px;padding:6px 8px;font-size:14px;cursor:pointer;">🗑️</button>' +
-      '</div>' +
-    '</div>';
-  }
-  document.getElementById("itemList").innerHTML = listHtml;
-  document.getElementById("count").innerText = selectedCount;
-}
-
-window.onload = render;
