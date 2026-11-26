@@ -6,9 +6,10 @@ var uiText = {
     sub: "Tap items to add & send on WhatsApp",
     placeholder: "Add custom item (e.g. Besan, Paneer)...",
     add: "+ Add",
-    clear: "Clear",
+    clear: "Uncheck All",
     wa: "Send to WhatsApp",
     alertEmpty: "Please select at least 1 item first!",
+    confirmDel: "Remove this item from the list?",
     waHeader: "*🛒 Ghar Ki List:*",
     cats: { All: "All", Selected: "Selected", Ration: "Ration", Masale: "Masale", Sabzi: "Sabzi", Dairy: "Dairy" }
   },
@@ -17,9 +18,10 @@ var uiText = {
     sub: "सामान चुनें और व्हाट्सएप पर भेजें",
     placeholder: "नया सामान लिखें (जैसे बेसन, पनीर)...",
     add: "+ जोड़ें",
-    clear: "साफ़ करें",
+    clear: "सब हटाएं",
     wa: "व्हाट्सएप पर भेजें",
     alertEmpty: "कृपया पहले कम से कम 1 सामान चुनें!",
+    confirmDel: "क्या आप इस सामान को लिस्ट से हटाना चाहते हैं?",
     waHeader: "*🛒 घर का सामान (लिस्ट):*",
     cats: { All: "सभी", Selected: "चुने हुए", Ration: "राशन", Masale: "मसाले", Sabzi: "सब्ज़ी", Dairy: "डेयरी" }
   },
@@ -28,9 +30,10 @@ var uiText = {
     sub: "ਸਮਾਨ ਚੁਣੋ ਤੇ ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
     placeholder: "ਨਵਾਂ ਸਮਾਨ ਲਿਖੋ (ਜਿਵੇਂ ਵੇਸਣ, ਪਨੀਰ)...",
     add: "+ ਜੋੜੋ",
-    clear: "ਸਾਫ਼ ਕਰੋ",
+    clear: "ਸਭ ਅਣ-ਚੁਣੋ",
     wa: "ਵਟਸਐਪ 'ਤੇ ਭੇਜੋ",
     alertEmpty: "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਘੱਟੋ-ਘੱਟ 1 ਸਮਾਨ ਚੁਣੋ!",
+    confirmDel: "ਕੀ ਤੁਸੀਂ ਇਸ ਸਮਾਨ ਨੂੰ ਲਿਸਟ ਵਿੱਚੋਂ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
     waHeader: "*🛒 ਘਰ ਦੇ ਸਮਾਨ ਦੀ ਲਿਸਟ:*",
     cats: { All: "ਸਾਰਾ", Selected: "ਚੁਣਿਆ ਹੋਇਆ", Ration: "ਰਾਸ਼ਨ", Masale: "ਮਸਾਲੇ", Sabzi: "ਸਬਜ਼ੀ", Dairy: "ਡੇਅਰੀ" }
   }
@@ -101,6 +104,17 @@ function toggleItem(id) {
   save();
 }
 
+function deleteItem(id) {
+  var t = uiText[lang] || uiText.en;
+  if (!confirm(t.confirmDel)) return;
+  var updated = [];
+  for (var k = 0; k < items.length; k++) {
+    if (items[k].id !== id) updated.push(items[k]);
+  }
+  items = updated;
+  save();
+}
+
 function changeQty(id, val) {
   for (var k = 0; k < items.length; k++) {
     if (items[k].id === id) {
@@ -115,7 +129,8 @@ function addCustom() {
   var input = document.getElementById("customItem");
   var name = input.value.trim();
   if (!name) return;
-  items.unshift({ id: Date.now(), cat: "Ration", en: name, hi: name, pa: name, qty: "1 pkt", selected: true });
+  var targetCat = (currentTab === "All" || currentTab === "Selected") ? "Ration" : currentTab;
+  items.unshift({ id: Date.now(), cat: targetCat, en: name, hi: name, pa: name, qty: "1 pkt", selected: true });
   input.value = "";
   save();
 }
@@ -192,6 +207,7 @@ function render() {
       '<div class="qty-controls">' +
         '<select onchange="changeQty(' + item.id + ', this.value)">' + optsHtml + '</select>' +
         '<button type="button" class="check-btn" onclick="toggleItem(' + item.id + ')">' + (item.selected ? '✓' : '+') + '</button>' +
+        '<button type="button" onclick="deleteItem(' + item.id + ')" style="border:none;background:#fee2e2;color:#dc2626;border-radius:8px;padding:6px 8px;font-size:14px;cursor:pointer;">🗑️</button>' +
       '</div>' +
     '</div>';
   }
